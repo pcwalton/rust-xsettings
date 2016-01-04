@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["Patrick Walton <pcwalton@mimiga.net>"]
 description = "Rust bindings to the XSETTINGS client library"
 keywords = ["x11", "xsettings"]
+license = "MIT/Apache-2.0"
+homepage = "https://github.com/pcwalton/rust-xsettings"
+repository = "https://github.com/pcwalton/rust-xsettings"
 
 [lib]
 name = "xsettings"
