@@ -1,6 +1,6 @@
 [package]
 name = "xsettings"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Patrick Walton <pcwalton@mimiga.net>"]
 description = "Rust bindings to the XSETTINGS client library"
 keywords = ["x11", "xsettings"]
@@ -18,8 +18,5 @@ path = "read-scale.rs"
 
 [dependencies]
 libc = "0.2"
-
-[dependencies.x11]
-version = "2.3"
-features = ["xlib"]
+x11-dl = "^2.2"
 

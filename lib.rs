@@ -9,7 +9,7 @@
 // except according to those terms.
 
 extern crate libc;
-extern crate x11;
+extern crate x11_dl;
 
 use libc::{c_char, c_int, c_long, c_ulong, c_ushort, c_void};
 use std::ffi::{CStr, CString};
@@ -17,7 +17,7 @@ use std::fmt::{self, Debug, Formatter};
 use std::marker::PhantomData;
 use std::mem;
 use std::ptr;
-use x11::xlib::{Bool, Display, False, Window};
+use x11_dl::xlib::{Bool, Display, False, Window};
 
 pub use self::XSettingsResult as Error;
 

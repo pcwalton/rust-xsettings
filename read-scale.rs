@@ -9,22 +9,23 @@
 // except according to those terms.
 
 extern crate xsettings;
-extern crate x11;
+extern crate x11_dl;
 
 use std::ptr;
 use std::str;
-use x11::xlib::{XDefaultScreen, XOpenDisplay};
+use x11_dl::xlib::Xlib;
 use xsettings::Client;
 
 pub fn main() {
     let display;
     let client;
+    let xlib = Xlib::open().unwrap();
     unsafe {
-        display = XOpenDisplay(ptr::null_mut());
+        display = (xlib.XOpenDisplay)(ptr::null_mut());
 
         // Enumerate all properties.
         client = Client::new(display,
-                             XDefaultScreen(display),
+                             (xlib.XDefaultScreen)(display),
                              Box::new(|name, _, setting| {
                                  println!("{:?}={:?}", str::from_utf8(name), setting)
                              }),
