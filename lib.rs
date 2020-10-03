@@ -17,7 +17,7 @@ use std::fmt::{self, Debug, Formatter};
 use std::marker::PhantomData;
 use std::mem;
 use std::ptr;
-use x11_dl::xlib::{Bool, Display, False, Window};
+use x11_dl::xlib::{Bool, Display, False, Window, XEvent};
 
 pub use self::XSettingsResult as Error;
 
@@ -242,6 +242,12 @@ impl Client {
         }
     }
 
+    pub fn process_event(&mut self, event: &XEvent) -> bool {
+        unsafe {
+            xsettings_client_process_event(self.client, event) != False
+        }
+    }
+
     pub fn get_setting(&self, name: &[u8]) -> Result<Setting,Error> {
         let name = CString::new(name).expect("name() must be a valid C string!");
         let mut setting = ptr::null_mut();
@@ -270,6 +276,8 @@ extern {
                             cb_data: *mut c_void)
                             -> *mut XSettingsClient;
     fn xsettings_client_destroy(client: *mut XSettingsClient);
+    fn xsettings_client_process_event(client: *mut XSettingsClient,
+                                      event: *const XEvent) -> Bool;
     fn xsettings_client_get_setting(client: *mut XSettingsClient,
                                     name: *const c_char,
                                     setting: *mut *mut XSettingsSetting)
